@@ -68,7 +68,7 @@ reddit_urls = function(search_terms=NA,
       
       if(length(index)>0){
         
-        search_date  = format(as.Date(as.POSIXct(unlist(lapply(seq(contents),function(x)contents[[x]]$data$created_utc)),origin="1970-01-01")),"%Y-%m-%d")
+        search_date  = format(as.Date(as.POSIXct(unlist(lapply(seq(contents),function(x)contents[[x]]$data$created_utc)),origin="1970-01-01")),"%d-%m-%y")
         
         
         temp_dat     = data.frame(date             = search_date,
