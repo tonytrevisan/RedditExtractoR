@@ -11,6 +11,7 @@
 #' @param cn_threshold Comment number threshold that remove URLs with fewer comments that cn_threshold. 0 by default.
 #' @param page_threshold Page threshold that controls the number of pages is going to be searched for a given search word. 1 by default.
 #' @param sort_by Sorting parameter, either "comments" (default) or "new".
+#' @param history How new is the post. Options are hour, day, week, month, year, all
 #' @param wait_time wait time in seconds between page requests. 2 by default and it is also the minimum (API rate limit).
 #' @return A data frame with URLs (links), number of comments (num_comments), title (title),date (date) and subreddit (subreddit).
 #' @export
@@ -21,6 +22,7 @@ reddit_urls = function(search_terms=NA,
                        cn_threshold=0,
                        page_threshold=1,
                        sort_by="relevance",
+                       history="month",
                        wait_time=2){
   
   if(!grepl("^comments$|^new$|^relevance$",sort_by)){stop("sort_by must be either 'new', 'comments' or 'relevance'")}
@@ -37,7 +39,7 @@ reddit_urls = function(search_terms=NA,
   sterms         = ifelse(is.na(sterms),"",paste0("q=",sterms,"&restrict_sr=on&"))
   sterms_prefix  = ifelse(sterms=="","new","search")
   
-  search_address = search_query = paste0("https://www.reddit.com/",subreddit,sterms_prefix,".json?",sterms,"sort=",sort_by)
+  search_address = search_query = paste0("https://www.reddit.com/",subreddit,sterms_prefix,".json?",sterms,"sort=",sort_by,'&t=',history)
   
   next_page      = index = ""
   page_counter   = 0
