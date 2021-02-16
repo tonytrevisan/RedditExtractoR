@@ -60,8 +60,10 @@ reddit_urls = function(search_terms=NA,
       
       search_permalink    = paste0("http://www.reddit.com",sapply(seq(contents),function(x)contents[[x]]$data$permalink))
       search_num_comments = sapply(seq(contents),function(x)contents[[x]]$data$num_comments)
-      search_title        = sapply(seq(contents),function(x)contents[[x]]$data$title)
+      search_ups    = sapply(seq(contents),function(x)contents[[x]]$data$ups)
+      search_up_ratio    = sapply(seq(contents),function(x)contents[[x]]$data$upvote_ratio)
       search_score        = sapply(seq(contents),function(x)contents[[x]]$data$score)
+      search_title        = sapply(seq(contents),function(x)contents[[x]]$data$title)
       search_subreddit    = sapply(seq(contents),function(x)contents[[x]]$data$subreddit)
       
       index = which(search_num_comments >= cn_threshold & grepl(regex_filter,search_title,ignore.case=T,perl=T))
@@ -73,6 +75,9 @@ reddit_urls = function(search_terms=NA,
         
         temp_dat     = data.frame(date             = search_date,
                                   num_comments     = search_num_comments, 
+                                  up_votes         = search_ups,
+                                  up_ratio         = search_up_ratio,
+                                  score            = search_score,
                                   title            = search_title, 
                                   subreddit        = search_subreddit,
                                   URL              = search_permalink,
