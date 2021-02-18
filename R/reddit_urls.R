@@ -46,7 +46,7 @@ reddit_urls = function(search_terms=NA,
   comm_filter    = 10000
   
   while(is.null(next_page)==FALSE & page_counter < page_threshold & comm_filter >= cn_threshold & length(index)>0){
-    Sys.sleep(.5)
+    Sys.sleep(5)
     search_JSON  = tryCatch(RJSONIO::fromJSON(readLines(search_query, warn = FALSE)), error = function(e) NULL)
     
     if(is.null(search_JSON)){
