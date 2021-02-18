@@ -47,8 +47,9 @@ reddit_urls = function(search_terms=NA,
   
   while(is.null(next_page)==FALSE & page_counter < page_threshold & comm_filter >= cn_threshold & length(index)>0){
 
-    search_JSON  = tryCatch(RJSONIO::fromJSON(readLines(search_query, warn = FALSE)), error = function(e) NULL)
-    
+    # search_JSON  = tryCatch(RJSONIO::fromJSON(readLines(search_query, warn = FALSE)), error = function(e) NULL)
+    search_JSON  = tryCatch(content(GET(search_address, user_agent("red_pull"))), error = function(e) NULL)
+                            
     if(is.null(search_JSON)){
       cat(paste("Cannot connect to the website, skipping...\n"))
       next
