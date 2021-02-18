@@ -52,8 +52,8 @@ reddit_urls = function(search_terms=NA,
     search_JSON  = tryCatch(content(GET(search_address, user_agent(useragent))), error = function(e) NULL)
                             
     if(is.null(search_JSON)){
-      cat(paste("Cannot connect to the website, skipping...\n"))
-      next
+      saveRDS(Sys.time(),'/data/reddit_errmsg.rds')
+      stop()
     }
     
     else{
